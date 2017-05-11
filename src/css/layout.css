@@ -44,12 +44,13 @@ body {
     /*box-shadow: 1px 0 1px rgba(0, 0, 0, .3);*/
 }
     .docs-title{
-        border-bottom:1px dashed #ccc;
+        
     }
     .docs-title a{
         display:block;
         text-align:center;
         line-height:90px;font-size:18px;color:#333;
+        border-bottom:1px dashed #ccc;
     }
     .docs-nav{padding:20px 0;}
 

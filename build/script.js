@@ -1,14 +1,13 @@
 
 /**
- * <Article md = {String} />
- * @param {String} md MD文档内容
+ * <DocsArticle md = {String} />
+ * @param md {String} MD文档内容
  * @return <article> md to html </article>
  *
- * 依赖:
- * highlight.pack.js markdown-it.min.js
+ * 依赖: highlight.pack.js markdown-it.min.js
  */
-var Article = React.createClass({
-    displayName: 'Article',
+var DocsArticle = React.createClass({
+    displayName: 'DocsArticle',
 
     componentDidMount: function () {
         var md = this.props.md || '';
@@ -23,19 +22,28 @@ var Article = React.createClass({
             hljs.highlightBlock(el);
         });
     },
+    componentDidUpdate: function () {
+        this.componentDidMount();
+    },
     render: function () {
         return React.createElement('article', { ref: 'article' });
     }
 });
 /**
- * ArticleLists
+ * <ArticleLists files={Array} file={String} />
+ * @param {Array} files 文件列表信息
+ *        [{title:'String',file:'String'},...]
+ * @param {String} file 当前选中的文件
  * <ul></ul>
  */
-var ArticleLists = React.createClass({
-    displayName: 'ArticleLists',
+var DocsLists = React.createClass({
+    displayName: 'DocsLists',
 
     render: function () {
-        console.log(this.props.files);
+        var file = this.props.file || '';
+        function active(key) {
+            return key == file ? 'on' : '';
+        }
         return React.createElement(
             'ul',
             null,
@@ -45,7 +53,7 @@ var ArticleLists = React.createClass({
                     null,
                     React.createElement(
                         'a',
-                        { href: 'javascript:void(0)', 'data-key': el.file },
+                        { href: 'javascript:void(0)', className: active(el.file), 'data-key': el.file },
                         el.title
                     )
                 );
@@ -54,31 +62,52 @@ var ArticleLists = React.createClass({
     }
 });
 /**
- *  Main
+ * <DocsTheme theme={String}/>
+ * @param {String} theme Docs主题
+ * @return <a href="">{theme}</a>
  */
-var Main = React.createClass({
-    displayName: 'Main',
+var DocsTheme = React.createClass({
+    displayName: 'DocsTheme',
 
     render: function () {
-        var md = this.props.md;
-        var files = [{
-            file: 'solution',
-            title: '标题名称'
-        }, {
-            file: 'regex',
-            title: '第二个标题'
-        }];
+        var theme = this.props.theme || '';
+        return React.createElement(
+            'a',
+            { href: 'javascript:void(0)' },
+            theme
+        );
+    }
+});
+/**
+ *  DocsPage
+ */
+var DocsPage = React.createClass({
+    displayName: 'DocsPage',
+
+    getInitialState: function () {
+        return {
+            theme: '', //主题
+            files: '', //
+            md: ''
+        };
+    },
+    componentDidMount: function () {},
+    render: function () {
         return React.createElement(
             'div',
             { className: 'docs-page' },
             React.createElement(
                 'div',
                 { className: 'docs-side' },
-                React.createElement('div', { className: 'docs-title' }),
+                React.createElement(
+                    'div',
+                    { className: 'docs-title' },
+                    React.createElement(DocsTheme, { theme: this.state.theme })
+                ),
                 React.createElement(
                     'div',
                     { className: 'docs-nav' },
-                    React.createElement(ArticleLists, { files: files })
+                    React.createElement(DocsLists, { files: this.state.files, file: '' })
                 )
             ),
             React.createElement(
@@ -87,9 +116,26 @@ var Main = React.createClass({
                 React.createElement(
                     'section',
                     { className: 'docs-md' },
-                    React.createElement(Article, { md: md })
+                    React.createElement(DocsArticle, { md: this.state.md })
                 )
             )
+        );
+    }
+});
+/**
+ * 
+ */
+var Main = React.createClass({
+    displayName: 'Main',
+
+
+    render: function () {
+        var folder = "regexp";
+        var file = '';
+        return React.createElement(
+            'div',
+            { className: '' },
+            React.createElement(DocsPage, { folder: folder, file: file })
         );
     }
 });
@@ -101,4 +147,9 @@ var md = "# gulp API\r\n## gulp.src(globs[,optitons])\r \u8FD4\u56DE\u5F53\u524D
 //     document.querySelector('.docs-md')
 // );
 
-ReactDOM.render(React.createElement(Main, { md: md }), document.body);
+ReactDOM.render(React.createElement(Main, null), document.body);
+// 
+// ReactDOM.render(
+//     <DocsArticle md= {md} />,
+//     document.querySelector('body')
+// )
