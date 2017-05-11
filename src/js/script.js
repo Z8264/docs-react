@@ -66,22 +66,38 @@ var DocsTheme = React.createClass({
 var DocsPage = React.createClass({
     getInitialState:function(){
         return {
-            theme:'',  //主题
-            files:'',  //
+            theme:'',
+            files:[],
+            folder:'',
             md:''
         }
     },
     componentDidMount:function(){
-        
+        var _this = this;
+        DOCS.getDocsData(this.props.folder,function(data){
+            _this.setState(function(){
+                return data;
+            })
+        })
     },
     render: function() {
+        var md = '';
+        var file = this.props.file || '',
+            folder = this.props.folder || '';
+        if(!file || file == folder) md = this.state.md;
+        else{
+            this.state.files.some(function(el,i){
+                if(el.file == file) {md = el.md;return true;}
+            });
+        }
+        console.log(this.state);
         return <div className="docs-page">
                     <div className="docs-side">
                         <div className="docs-title"><DocsTheme theme = {this.state.theme} /></div>
-                        <div className="docs-nav"><DocsLists files={this.state.files} file =''/></div>
+                        <div className="docs-nav"><DocsLists files={this.state.files} file ={file}/></div>
                     </div>
                     <div className="docs-main">
-                        <section className="docs-md"><DocsArticle md = {this.state.md} /></section>
+                        <section className="docs-md"><DocsArticle md = {md} /></section>
                     </div>
                 </div>
     }
@@ -92,8 +108,8 @@ var DocsPage = React.createClass({
 var Main = React.createClass({
 
     render:function(){
-         var folder = "regexp";
-         var file ='';
+        var folder = "regexp";
+        var file ='';
         return <div className="">
                 <DocsPage folder ={folder} file = {file}/>
             </div>

@@ -86,13 +86,32 @@ var DocsPage = React.createClass({
 
     getInitialState: function () {
         return {
-            theme: '', //主题
-            files: '', //
+            theme: '',
+            files: [],
+            folder: '',
             md: ''
         };
     },
-    componentDidMount: function () {},
+    componentDidMount: function () {
+        var _this = this;
+        DOCS.getDocsData(this.props.folder, function (data) {
+            _this.setState(function () {
+                return data;
+            });
+        });
+    },
     render: function () {
+        var md = '';
+        var file = this.props.file || '',
+            folder = this.props.folder || '';
+        if (!file || file == folder) md = this.state.md;else {
+            this.state.files.some(function (el, i) {
+                if (el.file == file) {
+                    md = el.md;return true;
+                }
+            });
+        }
+        console.log(this.state);
         return React.createElement(
             'div',
             { className: 'docs-page' },
@@ -107,7 +126,7 @@ var DocsPage = React.createClass({
                 React.createElement(
                     'div',
                     { className: 'docs-nav' },
-                    React.createElement(DocsLists, { files: this.state.files, file: '' })
+                    React.createElement(DocsLists, { files: this.state.files, file: file })
                 )
             ),
             React.createElement(
@@ -116,7 +135,7 @@ var DocsPage = React.createClass({
                 React.createElement(
                     'section',
                     { className: 'docs-md' },
-                    React.createElement(DocsArticle, { md: this.state.md })
+                    React.createElement(DocsArticle, { md: md })
                 )
             )
         );
