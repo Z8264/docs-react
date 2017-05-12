@@ -1,3 +1,30 @@
+var casheData = {};
+var md = function (state = '', action) {
+    switch (action.type) {
+        case 'LoadArticle':
+            state = casheData.md;
+            return state;
+        default:
+            return casheData.md || '';
+    }
+};
+var files = function (state = [], action) {
+    switch (action.type) {
+        default:
+            return casheData.files || [];
+    }
+};
+
+var theme = function (state = '', action) {
+    switch (action.type) {
+        default:
+            return casheData.theme || '';
+    }
+};
+
+var reducer = Redux.combineReducers({ md, files, theme });
+
+var store = Redux.createStore(reducer);
 
 /**
  * <DocsArticle md = {String} />
@@ -22,10 +49,8 @@ var DocsArticle = React.createClass({
             hljs.highlightBlock(el);
         });
     },
-    componentDidUpdate: function () {
-        this.componentDidMount();
-    },
     render: function () {
+        console.log('render article');
         return React.createElement('article', { ref: 'article' });
     }
 });
@@ -40,6 +65,7 @@ var DocsLists = React.createClass({
     displayName: 'DocsLists',
 
     render: function () {
+        console.log('render lists');
         var file = this.props.file || '';
         function active(key) {
             return key == file ? 'on' : '';
@@ -70,6 +96,7 @@ var DocsTheme = React.createClass({
     displayName: 'DocsTheme',
 
     render: function () {
+        console.log('render theme');
         var theme = this.props.theme || '';
         return React.createElement(
             'a',
@@ -84,34 +111,8 @@ var DocsTheme = React.createClass({
 var DocsPage = React.createClass({
     displayName: 'DocsPage',
 
-    getInitialState: function () {
-        return {
-            theme: '',
-            files: [],
-            folder: '',
-            md: ''
-        };
-    },
-    componentDidMount: function () {
-        var _this = this;
-        DOCS.getDocsData(this.props.folder, function (data) {
-            _this.setState(function () {
-                return data;
-            });
-        });
-    },
     render: function () {
-        var md = '';
-        var file = this.props.file || '',
-            folder = this.props.folder || '';
-        if (!file || file == folder) md = this.state.md;else {
-            this.state.files.some(function (el, i) {
-                if (el.file == file) {
-                    md = el.md;return true;
-                }
-            });
-        }
-        console.log(this.state);
+        console.log('render page');
         return React.createElement(
             'div',
             { className: 'docs-page' },
@@ -121,12 +122,12 @@ var DocsPage = React.createClass({
                 React.createElement(
                     'div',
                     { className: 'docs-title' },
-                    React.createElement(DocsTheme, { theme: this.state.theme })
+                    React.createElement(DocsTheme, { theme: store.getState().theme })
                 ),
                 React.createElement(
                     'div',
                     { className: 'docs-nav' },
-                    React.createElement(DocsLists, { files: this.state.files, file: file })
+                    React.createElement(DocsLists, { files: store.getState().files })
                 )
             ),
             React.createElement(
@@ -135,40 +136,41 @@ var DocsPage = React.createClass({
                 React.createElement(
                     'section',
                     { className: 'docs-md' },
-                    React.createElement(DocsArticle, { md: md })
+                    React.createElement(DocsArticle, { md: store.getState().md })
                 )
             )
         );
     }
 });
-/**
- * 
- */
-var Main = React.createClass({
-    displayName: 'Main',
-
-
-    render: function () {
-        var folder = "regexp";
-        var file = '';
-        return React.createElement(
-            'div',
-            { className: '' },
-            React.createElement(DocsPage, { folder: folder, file: file })
-        );
-    }
-});
 
 //article 控制
-var md = "# gulp API\r\n## gulp.src(globs[,optitons])\r \u8FD4\u56DE\u5F53\u524D\u6587\u4EF6\u6D41\u3002\r |\u53C2\u6570|\u7C7B\u578B|\u5FC5\u586B|\u63CF\u8FF0\r\n|-|-|-|-|\r\n|`globs`|String or StringArray|\u5FC5\u586B|\u6E90\u6587\u4EF6\u8DEF\u5F84|\r\n|`options`|Object|\u53EF\u9009| - |\r # \u5E38\u7528\u89E3\u51B3\u65B9\u6848\r ## \u94B1\u5E01\u683C\u5F0F\u5316\r \u95EE\u9898\u63CF\u8FF0\uFF1A\u5199\u4E00\u4E2A\u65B9\u6CD5 \u8F93\u5165\uFF1A1234567 \u8FD4\u56DE\uFF1A1,234,567\r ``` javascript\r\nfunction formatting(num){\r }\r\n```";
+// var md = "# gulp API\r\n## gulp.src(globs[,optitons])\r \u8FD4\u56DE\u5F53\u524D\u6587\u4EF6\u6D41\u3002\r |\u53C2\u6570|\u7C7B\u578B|\u5FC5\u586B|\u63CF\u8FF0\r\n|-|-|-|-|\r\n|`globs`|String or StringArray|\u5FC5\u586B|\u6E90\u6587\u4EF6\u8DEF\u5F84|\r\n|`options`|Object|\u53EF\u9009| - |\r # \u5E38\u7528\u89E3\u51B3\u65B9\u6848\r ## \u94B1\u5E01\u683C\u5F0F\u5316\r \u95EE\u9898\u63CF\u8FF0\uFF1A\u5199\u4E00\u4E2A\u65B9\u6CD5 \u8F93\u5165\uFF1A1234567 \u8FD4\u56DE\uFF1A1,234,567\r ``` javascript\r\nfunction formatting(num){\r }\r\n```";
 // ReactDOM.render(
 //     <Article md = {md} />,
 //     document.querySelector('.docs-md')
 // );
-
-ReactDOM.render(React.createElement(Main, null), document.body);
 // 
-// ReactDOM.render(
-//     <DocsArticle md= {md} />,
-//     document.querySelector('body')
-// )
+
+
+function render() {
+    ReactDOM.render(React.createElement(DocsPage, null), document.body);
+}
+
+store.subscribe(render);
+
+var li;
+DOCS.getDocsData('ajax', function (data) {
+    casheData = data;
+    render();
+});
+
+// setTimeout(function(){
+
+// DOCS.getDocsData('regexp',function(data){
+// casheData = data;
+// store.dispatch({type:'LoadTheme'});
+// store.dispatch({type:'LoadLists'});
+// store.dispatch({type:'LoadArticle'});
+// render();
+// })
+// },1000);
