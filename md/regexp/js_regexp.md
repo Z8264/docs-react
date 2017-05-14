@@ -1,15 +1,18 @@
 # JavaScript RegExp
-## 语法
 
-|语法|方法描述|
+参考文档：[https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+
+## 语法 (Syntax)
+
+|语法|方法|
 |--|--|
-|/pattern/flags |字面量|
-|new RegExp(pattern,flags) |构造函数|
-|RegExp(pattern,flags)|工厂符号|
+|/pattern/flags |字面量(literal)|
+|new RegExp(pattern,flags) |构造函数(constructor)|
+|RegExp(pattern,flags)|工厂符号(fatory notations)|
 
 pattern:正则表达式的文本。flags:标志。
 
-以下为浏览器支持的flags，其他标志将抛出异常(SyntaxError)。
+以下为javascript支持的flags，flags可以具有以下值的任意组合，其他标志将抛出异常(SyntaxError)。
 
 |flags|描述|es6|
 |--|--|--|
@@ -29,7 +32,8 @@ pattern:正则表达式的文本。flags:标志。
 |input 或 $_||
 |lastMatch 或 $&||
 |lastParen 或 $+||
-|leftContext或 $`||
+|leftContext 或 $`||
+|rightContext 或 $'||
 |prototype|||
 
 |RegExp.prototype| 描述|

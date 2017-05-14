@@ -9,11 +9,12 @@ Google Code style (c) Aahan Krish <geekpanth3r@gmail.com>
   overflow-x: auto;
   padding: 1em;
   line-height:1.6em;
-  background: #f1f1f1;
+  background: #f6f6f6;
+  color: #666;
   border:1px dashed #ccc;
-  color: black;
   border-radius:5px;
 }
+
 
 .hljs-comment,
 .hljs-quote {

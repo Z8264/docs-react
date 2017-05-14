@@ -6,93 +6,127 @@ body {
     height: 100%;
     background: #fff;
 }
-
-
-/*.header{
-    position:fixed;z-index:20;
-    top:0;left:0;bottom:0;
+/*docs-func*/
+.docs-func{
+    position:fixed;
+    top:0;left:0;bottom:0;z-index:30;
     width:80px;
+    background:#fff;
     border-right:1px dashed #ccc;
-}*/
-/*folder-page*/
-.folder-page{
-    position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;
-    background:#f1f1f1;
 }
-    .folder-list{
-        padding:100px 0 0;
-        width:300px;margin:0 auto;
-    }
-    .folder-list li{padding:5px;}
-    .folder-list li a{
+    .docs-func a{
         display:block;
-        line-height:40px;color:#333;
-        text-align:center;
-        background:#ddd;
+        height:80px;
+        line-height:80px;font-size:40px;color:#333;
+        text-align: center;
+        transition:all ease-out .3s;
     }
-/*docs-page*/
+    .docs-func a:hover{
+        color:#08c;
+    }
+/*docs-home*/
+.docs-home{
+    position:fixed;top:0;left:80px;right:0;bottom:0;z-index:30;
+    background:#fff;
+}
+.docs-page-on .docs-home{display:none;}
+    .docs-folders{width:750px;overflow:hidden;padding:20px 0;}
+
+    /*.docs-folders ul{float:left;width:33.33%;}*/
+    .docs-folders li{
+        padding:0 10px;
+        overflow:hidden;text-overflow:ellipsis; 
+    }
+    .docs-folders li a{
+        position:relative;
+        padding:0 20px;
+        display:block;
+        height:40px;overflow:hidden;
+        line-height:40px;font-size:14px;color:#333;
+        transition:all ease-out .3s;
+        border-bottom:1px dashed #ccc;
+    }
+    .docs-folders li a:before{
+        float:left;margin-right:3px;
+        /*position:absolute;top:0;left:0;*/
+        content:'\e63c';
+        font-family: "iconfont";
+        font-size:24px;
+
+    }
+
+    .docs-folders li a:hover{
+        color:#f60;
+    }
+
+    .docs-folders li a.on{
+        color:#08c;
+    }
+
+/*docs-side*/
 .docs-side {
+    display:none;
     position: fixed;
-    /*padding-top:60px;*/
     top: 0;
-    left: 0;
+    left: 80px;
     bottom: 0;
-    width: 320px;
+    width: 400px;
     background: #fff;
     border-right:1px dashed #ccc;
-    /*box-shadow:-1px 0 0 #fff inset;*/
-    /*box-shadow: 1px 0 1px rgba(0, 0, 0, .3);*/
 }
-    .docs-title{
+.docs-page-on .docs-side{display:block;}
+    .docs-theme{
         
     }
-    .docs-title a{
+    .docs-theme a{
         display:block;
         text-align:center;
         line-height:90px;font-size:18px;color:#333;
         border-bottom:1px dashed #ccc;
     }
-    .docs-nav{padding:20px 0;}
+    .docs-files{padding:20px 0;}
 
-    .docs-nav li{
+    .docs-files li{
         padding:0 30px;
         overflow:hidden;text-overflow:ellipsis; 
     }
-    .docs-nav li a{
+    .docs-files li a{
         position:relative;
         padding:0 10px;
         display:block;
         height:40px;overflow:hidden;
-        line-height:40px;font-size:12px;color:#333;
+        line-height:40px;font-size:14px;color:#333;
         transition:all ease-out .3s;
         border-bottom:1px dashed #ccc;
     }
-    .docs-nav li a:before{
+    .docs-files li a:before{
         float:left;margin-right:3px;
         /*position:absolute;top:0;left:0;*/
         content:'\e617';
         font-family: "iconfont";
-        font-size:22px;color:#333;
-
+        font-size:22px;
+        transition:transform ease-out .3s;
     }
 
-    .docs-nav li a:hover{
+    .docs-files li a:hover{
         color:#f60;
     }
-    .docs-nav li a.on .iconfont{
+    .docs-files li a.on:before{
         color:#08c;
+        transform:scale(1.2,1.2);
     }
-    .docs-nav li a.on{
+    .docs-files li a.on{
         color:#08c;
     }
 
-
+/*docs-main*/
 .docs-main {
+    display:none;
     min-height: 100%;
-    margin-left: 320px;
+    margin-left: 480px;
     background: #fff;
 }
-
+.docs-page-on .docs-main{display:block;}
 .docs-main section {
     padding: 30px 50px 300px;
     width:700px;

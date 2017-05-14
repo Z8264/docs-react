@@ -16,7 +16,7 @@
 | `!` | 排除文件 |   !src/a.js|不包含src下的a.js文件|
 
 |options|类型|默认|描述|
-|-|-|-|
+|-|-|-|-|
 |`buffer`|Boolean|true|false：返回file.content的流并且不缓冲文件|
 |`read`|Boolean|true|false：不执行读取文件操作，返回null|
 |`base`|String||路径拼接|
