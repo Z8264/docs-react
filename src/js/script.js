@@ -1,7 +1,6 @@
 /**
  * <DocsFiles files={Array} file={String} />
  * @param {Array} files 文件列表信息
- *        [{title:'String',file:'String'},...]
  * @param {String} file 当前选中的文件
  * <ul></ul>
  */
@@ -21,15 +20,23 @@ var DocsFolders = React.createClass({
         function active(key) {
             return key == folder ? 'on' : '';
         }
+        console.log(this.props.folders);
         return <div>
-                <ul>
-                {
-                [].map.call(this.props.folders || [], function(el) {
-                    return <li><a href="javascript:void(0)" className = {active(el.folder)} data-key={el.folder}>{el.theme}</a></li>
+            {
+                [].map.call(this.props.folders || [],function(els,i){
+                    return <div className = "docs-group">
+                        <h3>{els.group} <span>{els.lists.length}</span></h3>
+                        <ul>
+                        {
+                            [].map.call(els.lists,function(el){
+                                return <li><a href="javascript:void(0)" className = {active(el.folder)} data-key={el.folder}>{el.theme}<span>{el.files.length}</span></a></li>
+                            })
+                        }
+                        </ul>
+                    </div>
                 })
-                }
-                </ul>
-            </div>
+            }
+        </div>
     }
 });
 /**
@@ -219,13 +226,14 @@ var DocsPage = React.createClass({
         var pageClass = 'docs-page';
         if (this.state.active) {
             pageClass += ' docs-page-on';
-        // window.location.hash = this.state.folder+'/'+this.state.file;
         }
         return <div className={pageClass} ref="docsPage">
                     <div className = "docs-func" ref="docsFunc">
-                        <a href="javascript:void(0)" className="iconfont"></a>
+                        <a href="javascript:void(0)" className="iconfont">&#xe600;</a>
+                        <a href="javascript:void(0)" className="iconfont">&#xe69f;</a>
                     </div>
                     <div className="docs-home">
+    
                         <div className="docs-folders" ref="docsFolders"><DocsFolders folders={folders} folder={this.state.folder}/></div>
                     </div>
                     <div className="docs-side">

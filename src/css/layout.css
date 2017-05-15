@@ -30,23 +30,47 @@ body {
     background:#fff;
 }
 .docs-page-on .docs-home{display:none;}
-    .docs-folders{width:750px;overflow:hidden;padding:20px 0;}
 
-    /*.docs-folders ul{float:left;width:33.33%;}*/
-    .docs-folders li{
-        padding:0 10px;
+    .docs-folders{
+        overflow:hidden;padding:0 20px;}
+
+    .docs-group {
+        padding:20px 10px;
+        float:left;width:250px;
+    }
+    .docs-group h3{
+        position:relative;
+        padding:0 5px;
+        font-size:16px;line-height:40px;color:#666;
+        border-bottom:1px dashed #ccc;
+    }
+    .docs-group h3 span{
+        position:absolute;top:0;right:10px;
+        font-size:12px;color:#666;}
+    .docs-group h3:before{
+        float:left;margin-right:3px;
+        content:'\e934';
+        font-family: "iconfont";
+        font-size:22px;
+        transition:transform ease-out .3s;
+    }
+    .docs-group li{
         overflow:hidden;text-overflow:ellipsis; 
     }
-    .docs-folders li a{
+    .docs-group li a{
         position:relative;
-        padding:0 20px;
+        padding:0 5px;
         display:block;
         height:40px;overflow:hidden;
-        line-height:40px;font-size:14px;color:#333;
+        line-height:40px;font-size:14px;color:#666;
         transition:all ease-out .3s;
         border-bottom:1px dashed #ccc;
     }
-    .docs-folders li a:before{
+    .docs-group li a span{
+        position:absolute;top:0;right:10px;
+        font-size:12px;color:#666;
+    }
+    .docs-group li a:before{
         float:left;margin-right:3px;
         /*position:absolute;top:0;left:0;*/
         content:'\e63c';
@@ -55,11 +79,11 @@ body {
 
     }
 
-    .docs-folders li a:hover{
+    .docs-group li a:hover{
         color:#f60;
     }
 
-    .docs-folders li a.on{
+    .docs-group li a.on{
         color:#08c;
     }
 
@@ -81,7 +105,7 @@ body {
     .docs-theme a{
         display:block;
         text-align:center;
-        line-height:90px;font-size:18px;color:#333;
+        line-height:80px;font-size:18px;color:#333;
         border-bottom:1px dashed #ccc;
     }
     .docs-files{padding:20px 0;}

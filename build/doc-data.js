@@ -1,25 +1,57 @@
-var DOCS = {};
-DOCS.data = [{
-    theme: 'RegExp',
-    folder: 'regexp',
-    files: ['js_regexp', 'quick_reference', 'solution']
-}, {
-    theme: 'AJAX',
-    folder: 'ajax',
-    files: ['xhr', 'xhr2']
-}, {
-    theme: 'Gulp',
-    folder: 'gulp',
-    files: ['api']
-}, {
-    theme: 'Sublime',
-    folder: 'sublime',
-    files: ['package_control', 'recommend']
-}, {
-    theme: 'React',
-    folder: 'react',
-    files: []
-}];
+var DOCS = DOCS || {};
+DOCS.data = [];
+DOCS.data[0] = {
+    group: '工具 IDE',
+    lists: [{
+        theme: 'Sublime',
+        folder: 'sublime',
+        files: ['package_control', 'recommend']
+    }]
+};
+DOCS.data[1] = {
+    group: '基础',
+    lists: [{
+        theme: 'ECMAScript',
+        folder: 'ecmascript',
+        files: []
+    }, {
+        theme: 'RegExp',
+        folder: 'regexp',
+        files: ['js_regexp', 'quick_reference', 'solution']
+    }, {
+        theme: 'AJAX',
+        folder: 'ajax',
+        files: ['xhr', 'xhr2']
+    }]
+};
+DOCS.data[2] = {
+    group: '框架',
+    lists: [{
+        theme: 'React',
+        folder: 'react',
+        files: []
+    }]
+};
+DOCS.data[3] = {
+    group: '工程化',
+    lists: [{
+        theme: 'Webpack',
+        folder: 'webpack',
+        files: []
+    }, {
+        theme: 'Gulp',
+        folder: 'gulp',
+        files: ['api']
+    }]
+};
+DOCS.data[4] = {
+    group: '其他',
+    lists: [{
+        theme: 'Gulp',
+        folder: 'gulp',
+        files: ['api']
+    }]
+};
 /**
  * cashedFolder
  * {
@@ -40,14 +72,19 @@ DOCS.getDocsFolder = function (folder, cb) {
         count = 0,
         times,
         result = {};
+    //folder
     result.folder = folder;
-    DOCS.data.some(function (el, i) {
-        if (el.folder == folder) {
+    //根据folder 查找 files theme
+    DOCS.data.some(function (els, i) {
+
+        return els.lists.some(function (el, i) {
+            if (el.folder != folder) return false;
             files = el.files;
             result.theme = el.theme;
             return true;
-        }
+        }) == true;
     });
+    //根据 files 补全数据 file md title
     times = files.length + 1;
     result.files = [];
     files.some(function (el, i) {
@@ -62,6 +99,7 @@ DOCS.getDocsFolder = function (folder, cb) {
             if (count == times) complete();
         });
     });
+    //查找首页md
     get('md/' + folder + '/' + folder + '.md', function (res) {
         result.md = res;
         //判断complete all;

@@ -12,7 +12,7 @@
 
 pattern:正则表达式的文本。flags:标志。
 
-以下为javascript支持的flags，flags可以具有以下值的任意组合，其他标志将抛出异常(SyntaxError)。
+flags可以具有以下值的任意组合，其他标志将抛出异常(SyntaxError)。
 
 |flags|描述|es6|
 |--|--|--|

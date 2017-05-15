@@ -1,7 +1,6 @@
 /**
  * <DocsFiles files={Array} file={String} />
  * @param {Array} files 文件列表信息
- *        [{title:'String',file:'String'},...]
  * @param {String} file 当前选中的文件
  * <ul></ul>
  */
@@ -23,24 +22,47 @@ var DocsFolders = React.createClass({
         function active(key) {
             return key == folder ? 'on' : '';
         }
+        console.log(this.props.folders);
         return React.createElement(
             'div',
             null,
-            React.createElement(
-                'ul',
-                null,
-                [].map.call(this.props.folders || [], function (el) {
-                    return React.createElement(
-                        'li',
+            [].map.call(this.props.folders || [], function (els, i) {
+                return React.createElement(
+                    'div',
+                    { className: 'docs-group' },
+                    React.createElement(
+                        'h3',
                         null,
+                        els.group,
+                        ' ',
                         React.createElement(
-                            'a',
-                            { href: 'javascript:void(0)', className: active(el.folder), 'data-key': el.folder },
-                            el.theme
+                            'span',
+                            null,
+                            els.lists.length
                         )
-                    );
-                })
-            )
+                    ),
+                    React.createElement(
+                        'ul',
+                        null,
+                        [].map.call(els.lists, function (el) {
+                            return React.createElement(
+                                'li',
+                                null,
+                                React.createElement(
+                                    'a',
+                                    { href: 'javascript:void(0)', className: active(el.folder), 'data-key': el.folder },
+                                    el.theme,
+                                    React.createElement(
+                                        'span',
+                                        null,
+                                        el.files.length
+                                    )
+                                )
+                            );
+                        })
+                    )
+                );
+            })
         );
     }
 });
@@ -251,7 +273,6 @@ var DocsPage = React.createClass({
         var pageClass = 'docs-page';
         if (this.state.active) {
             pageClass += ' docs-page-on';
-            // window.location.hash = this.state.folder+'/'+this.state.file;
         }
         return React.createElement(
             'div',
@@ -263,6 +284,11 @@ var DocsPage = React.createClass({
                     'a',
                     { href: 'javascript:void(0)', className: 'iconfont' },
                     '\uE600'
+                ),
+                React.createElement(
+                    'a',
+                    { href: 'javascript:void(0)', className: 'iconfont' },
+                    '\uE69F'
                 )
             ),
             React.createElement(
