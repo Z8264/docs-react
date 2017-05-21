@@ -27,17 +27,22 @@ body {
 /*docs-home*/
 .docs-home{
     position:fixed;top:0;left:80px;right:0;bottom:0;z-index:30;
-    background:#fff;
+    background:rgba(255,255,255,.7);
+    overflow:auto;
 }
 .docs-page-on .docs-home{display:none;}
 
     .docs-folders{
-        overflow:hidden;padding:0 20px;}
+        overflow:hidden;padding:0 20px;
+    }
 
     .docs-group {
         padding:20px 10px;
         float:left;width:250px;
+        /*background:#fff;*/
     }
+
+
     .docs-group h3{
         position:relative;
         padding:0 5px;
@@ -54,6 +59,7 @@ body {
         font-size:22px;
         transition:transform ease-out .3s;
     }
+
     .docs-group li{
         overflow:hidden;text-overflow:ellipsis; 
     }

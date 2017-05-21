@@ -233,7 +233,6 @@ var DocsPage = React.createClass({
                         <a href="javascript:void(0)" className="iconfont">&#xe69f;</a>
                     </div>
                     <div className="docs-home">
-    
                         <div className="docs-folders" ref="docsFolders"><DocsFolders folders={folders} folder={this.state.folder}/></div>
                     </div>
                     <div className="docs-side">

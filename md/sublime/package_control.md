@@ -1,12 +1,10 @@
-# Package Control
+# Package Control 
+
+website: [https://packagecontrol.io/](https://packagecontrol.io/)
 
 > The Sublime Text package manager that makes it exceedingly simple to find, install and keep packages up-to-date;
 
 Sublime 包（插件）管理工具，使插件更加容易被找到、安装和保持更新。
-
-官网地址：[https://packagecontrol.io/](https://packagecontrol.io/)
-
-> preferences ['pref(ə)r(ə)nsɪz] 参数选择（preference的复数）
 
 
 ## 安装 Package Control 
@@ -31,4 +29,6 @@ Sublime 包（插件）管理工具，使插件更加容易被找到、安装和
 
 4、成功后，重启浏览器
 
+------------------
 
+- preferences ['pref(ə)r(ə)nsɪz] 参数选择（preference的复数）

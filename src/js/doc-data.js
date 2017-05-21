@@ -1,20 +1,32 @@
 var DOCS = DOCS || {};
 DOCS.data = [];
 DOCS.data[0] = {
-    group: '工具 IDE',
+    group: '工具',
     lists: [{
         theme: 'Sublime',
         folder: 'sublime',
-        files: ['package_control', 'recommend']
+        files: ['keybindings', 'package_control', 'packages']
+    }, {
+        theme: 'Git',
+        folder: 'git',
+        files: []
     }]
 }
 DOCS.data[1] = {
     group: '基础',
     lists: [{
-        theme:'ECMAScript',
-        folder:'ecmascript',
+        theme: 'ECMAScript',
+        folder: 'ecmascript',
+        files: []
+    }, {
+        theme: 'DOM',
+        folder: 'dom',
+        files: []
+    }, {
+        theme:'window',
+        folder:'window',
         files:[]
-    },{
+    }, {
         theme: 'RegExp',
         folder: 'regexp',
         files: ['js_regexp', 'quick_reference', 'solution']
@@ -25,10 +37,14 @@ DOCS.data[1] = {
     }]
 }
 DOCS.data[2] = {
-    group:'框架',
-    lists:[{
+    group: '框架',
+    lists: [{
         theme: 'React',
         folder: 'react',
+        files: []
+    }, {
+        theme: 'Vue.js',
+        folder: 'vue',
         files: []
     }]
 }
@@ -38,31 +54,47 @@ DOCS.data[3] = {
         theme: 'Webpack',
         folder: 'webpack',
         files: []
-    },{
+    }, {
         theme: 'Gulp',
         folder: 'gulp',
         files: ['api']
     }]
 }
 DOCS.data[4] = {
-    group: '其他',
+    group: '服务',
     lists: [{
-        theme: 'Gulp',
-        folder: 'gulp',
-        files: ['api']
+        theme: 'Node',
+        folder: 'Node',
+        files: []
+    }, {
+        theme: 'NPM',
+        folder: 'npm',
+        files: []
+    }]
+}
+DOCS.data[5] = {
+    group: '可视化',
+    lists: [{
+        theme: 'SVG',
+        folder: 'svg',
+        files: []
+    }, {
+        theme: 'Canvas',
+        folder: 'canvas',
+        files: []
     }]
 }
 /**
  * cashedFolder
  * {
- * 	 theme:'',   主题 = 主题内容
- * 	 folder:'',  文件夹名称 = 默认主题文件名
- * 	 files:[     子文件集合
- * 	 	{file:'',title:'',md:''},  文件名  文章标题  文章内容   
- * 	 	{file:'',title:'',md:''},
- * 	 	{file:'',title:'',md:''}
- * 	 ],
- * 	 md:''       主题文件内容
+ *   theme:'',   主题 = 主题内容
+ *   folder:'',  文件夹名称 = 默认主题文件名
+ *   files:[     子文件集合
+ *      {file:'',title:'',md:''},  文件名  文章标题  文章内容   
+ *      {file:'',title:'',md:''},
+ *      {file:'',title:'',md:''}
+ *   ],
+ *   md:''       主题文件内容
  * }
  * @type {[type]}
  */
@@ -76,14 +108,12 @@ DOCS.getDocsFolder = function(folder, cb) {
     result.folder = folder;
     //根据folder 查找 files theme
     DOCS.data.some(function(els, i) {
-
-        return els.lists.some(function(el,i){
+        return els.lists.some(function(el, i) {
             if (el.folder != folder) return false;
             files = el.files;
             result.theme = el.theme;
             return true;
         }) == true
-        
     });
     //根据 files 补全数据 file md title
     times = files.length + 1;

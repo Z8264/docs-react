@@ -1,8 +1,14 @@
 ﻿article {
     font-family: Consolas, Monaco, 'Andale Mono', '微软雅黑';
+    color:#666;
     transition:all ease-out .3s;
 }
 
+article hr{
+    margin:30px 0 10px;
+    border-top:0;
+    border-bottom:1px dashed #ccc;
+}
 /*格式*/
 
 article strong {
@@ -72,8 +78,8 @@ article>ul>li {
 
 article>ul>li:after {
     position: absolute;
-    top: 8px;
-    left: 9px;
+    top: 10px;
+    left: 8px;
     content: '';
     width: 4px;
     height: 4px;
@@ -95,7 +101,7 @@ article>p {
 
 /**/
 blockquote {
-    margin:5px 0;
+    margin:10px 0;
     padding:5px 10px;
     background:#f6f6f6;
     border-left:3px solid #ddd;
@@ -103,10 +109,9 @@ blockquote {
 blockquote > p{
     padding: 3px 0;
     font-size: 12px;
-    color: #666;
     line-height: 20px;
-    word-break:break-all; 
-　　word-wrap:break-word;
+    /*word-break:break-all; 
+　　word-wrap:break-word;*/
 }
 
 /*链接*/
