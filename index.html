@@ -16,7 +16,6 @@
 
 
 
-
 <script src="build/react.min.js"></script>
 <script src="build/react-dom.min.js"></script>
 <script src="build/highlight.pack.js"></script>
@@ -25,5 +24,23 @@
 
 <script src="build/doc-data.js"></script>
 <script src="build/script.js"></script>
+
+<script type="text/javascript">
+	
+function getParam(string){
+	['ie=utf-8','a=1']
+}
+
+console.log(getParam('ie'));
+
+ajax({
+	url:'1.json'
+	success:function(data){
+		//
+		console.log(data);
+	}
+});
+
+</script>
 </body>
 </html>
